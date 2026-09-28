@@ -1,0 +1,18 @@
+# README media
+
+These assets illustrate the RECITE compiler and its Scene–Route Intermediate Representation (SR–IR).
+
+| Asset | Source and role |
+| --- | --- |
+| `architecture.png` | Raster export of the RECITE manuscript's Figure 2: static expansion, reference-route planning, dynamic-event compilation, solvability certification, and controller evaluation. |
+| `srir_fields.png` | Figure 3 with a six-item legend: route, occupied tube, interaction-candidate interval (ICI), portal, rejoin anchor, and goal cone. The lower panels show the accompanying route-progress profiles. |
+| `srir_fields.gif` | Cropped field-by-field sequence from the RECITE supplementary demonstration. It retains the original scene and secondary view, removes narration subtitles and surrounding margins, and plays at 2.4× speed for a compact README preview. |
+| `avoidance.gif` | Recorded CBF-QP + SR–IR rollout in a cabinet scene: lateral avoidance, recovery, and goal arrival. The original motion plays at 1× speed, with a short introductory sweep and terminal hold. Local nominal tube slices appear and fade over time rather than leaving the entire swept volume opaque. |
+
+The images and animation are qualitative illustrations of the representation. Quantitative stage results are provided separately in [`../results/`](../results/).
+
+The GIF uses **interaction-candidate interval (ICI)**. An ICI guides dynamic-event placement during compilation; it is not an online avoidance mode. Rejoin anchors describe candidate recovery states, while the goal cone represents the final approach region.
+
+The original videos and visualization-production scripts are not part of this initial code release.
+
+The avoidance preview follows the saved controller trace and source clock. Its annotations do not alter the robot or obstacle trajectory. The tube is the reference motion's occupancy, not a visualization of a new online plan; no unselected rejoin anchor is added.

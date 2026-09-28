@@ -1,10 +1,10 @@
-# RECITE
-
 <div align="center">
+
+<h1>RECITE</h1>
 
 **A Reactive-Evaluation Compiler with Scene–Route Intermediate Representation for Topology-Aware Dynamic Episodes**
 
-*Static scene families · Scene–Route IR · Dynamic interaction proposals · Diagnostic evaluation*
+*From static scene–route pairs to structured dynamic evaluation.*
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Dependency](https://img.shields.io/badge/Dependency-NumPy-4c8b7f)
@@ -13,11 +13,46 @@
 
 </div>
 
+[Overview](#overview) · [Architecture](#architecture) · [Examples](#visual-examples) · [Quick start](#quick-start) · [Release roadmap](#release-roadmap)
+
 ## Overview
 
 RECITE turns static scene–route pairs into structured dynamic evaluation tasks for reactive manipulators. Its **Scene–Route Intermediate Representation (SR–IR)** connects the reference route, swept occupancy, local clearance, interaction-candidate intervals (ICIs), portals, recovery candidates, and goal approach geometry. These fields support where and when to introduce moving obstacles, and provide context for downstream controller adapters.
 
 This initial release contains reusable compiler-stage code, a recorded RM65 example, and measured stage summaries. **The complete version will be organized and released over the next few months.**
+
+### What RECITE brings together
+
+- **Structured scenes:** expand geometric templates while preserving scene-family structure.
+- **Route-aware dynamic events:** use SR–IR to place and time moving obstacles around a reference motion.
+- **Inspectable evaluation:** retain geometry, interaction context, and contact diagnostics alongside each case.
+
+## Architecture
+
+<p align="center">
+  <img src="assets/architecture.png" width="820" alt="RECITE architecture: static scene expansion, reference-route planning, SR–IR construction, dynamic-event compilation, validation, and controller evaluation">
+</p>
+
+The system overview connects scene construction, reference planning, SR–IR, dynamic-event compilation, and evaluation. The initial release below exposes the numerical stage kernels and a CPU example; integrated planning and controller adapters are listed in the roadmap.
+
+## Visual examples
+
+<table>
+  <tr>
+    <th width="50%">Scene–Route IR</th>
+    <th width="50%">Dynamic obstacle avoidance</th>
+  </tr>
+  <tr>
+    <td><img src="assets/srir_fields.gif" width="520" alt="SR–IR fields revealed in a robot scene"></td>
+    <td><img src="assets/avoidance.gif" width="520" alt="A recorded robot response to a moving obstacle, with a locally highlighted occupied tube"></td>
+  </tr>
+  <tr>
+    <td>Reference-route structure and its field-level interpretation.</td>
+    <td>Obstacle interaction, continuous avoidance, and recovery toward the goal.</td>
+  </tr>
+</table>
+
+The animations are qualitative illustrations. In the avoidance example, tube opacity follows local route progress to keep the motion visible; the underlying nominal swept occupancy is unchanged. [SR–IR figure with legend](assets/srir_fields.png) · [Media sources and roles](assets/README.md).
 
 ## Included in this release
 
@@ -31,7 +66,7 @@ This initial release contains reusable compiler-stage code, a recorded RM65 exam
 | Recorded example | 153 reference-route samples with the RM65 11-sphere geometry and recorded sphere centers |
 | Stage results | Static generation over 10,000 requested slots and a four-strategy dynamic-proposal batch |
 
-The numerical kernels are extracted from the existing project implementation; [SOURCE_MAP.json](SOURCE_MAP.json) identifies their original modules. The release has no simulator, GPU, robot-mesh, or pretrained-model dependency.
+The numerical kernels are extracted from the existing project implementation; [SOURCE_MAP.json](SOURCE_MAP.json) identifies their original modules. **The runnable example requires only Python and NumPy.**
 
 ## Quick start
 
@@ -95,6 +130,7 @@ The dynamic snapshot includes rejection categories and fixed-route scheduling (`
 
 ```text
 RECITE/
+├── assets/                 # README figures and short qualitative animations
 ├── recite/                 # Scene, SR–IR, proposal, TRS, and metric kernels
 ├── examples/               # Runnable CPU stage example
 ├── data/                   # Recorded RM65 scene–route sample
@@ -113,7 +149,7 @@ RECITE/
 - [ ] Controller adapters and matched evaluation configuration
 - [ ] Expanded benchmark episodes and organized reproduction instructions
 
-The complete version will be organized and released over the next few months. This repository focuses on the research pipeline and benchmark components; video-production tools are outside its scope.
+This repository focuses on the research pipeline and benchmark components. The figures and GIFs introduce the method; video-production tools are outside the code-release scope.
 
 ## Citation
 
