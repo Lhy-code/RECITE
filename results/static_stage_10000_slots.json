@@ -1,0 +1,171 @@
+{
+  "schema": "recite_public_static_stage_result_v1",
+  "measured_batch": "2026-08-05",
+  "source": "artifacts/experiments/recite_compiler_scale_20260805_v1/static_scale_ledger_v1/static_scale_ledger.json",
+  "scope": "static_sampling_and_lightweight_geometric_validation_only",
+  "static_stage": {
+    "static_template_count": 25,
+    "requested_variant_slots": 10000,
+    "requested_slots_are_attempt_ids": false,
+    "requested_slot_semantics": "target output slots; rejected perturbation attempts were not emitted by the reused generator",
+    "materialized_valid_variant_count": 9744,
+    "independently_revalidated_variant_count": 9744,
+    "unfilled_requested_slots": 256,
+    "materialization_rate_percent": 97.44,
+    "unique_variant_id_count": 9744,
+    "parent_template_coverage": 25,
+    "seed": 42,
+    "per_parent": [
+      {
+        "base": "rm65_corridor",
+        "requested": 400,
+        "generated": 400,
+        "source": "rm65_realistic"
+      },
+      {
+        "base": "rm65_shelf_reach",
+        "requested": 400,
+        "generated": 400,
+        "source": "rm65_realistic"
+      },
+      {
+        "base": "rm65_drawer_wall",
+        "requested": 400,
+        "generated": 400,
+        "source": "rm65_realistic"
+      },
+      {
+        "base": "rm65_cubby_shelf",
+        "requested": 400,
+        "generated": 400,
+        "source": "rm65_realistic"
+      },
+      {
+        "base": "rm65_cabinet_reach",
+        "requested": 400,
+        "generated": 400,
+        "source": "rm65_realistic"
+      },
+      {
+        "base": "moveit_bookshelf_small",
+        "requested": 400,
+        "generated": 400,
+        "source": "moveit_proxy"
+      },
+      {
+        "base": "moveit_bookshelf_tall",
+        "requested": 400,
+        "generated": 363,
+        "source": "moveit_proxy"
+      },
+      {
+        "base": "moveit_bookshelf_thin",
+        "requested": 400,
+        "generated": 400,
+        "source": "moveit_proxy"
+      },
+      {
+        "base": "moveit_cage",
+        "requested": 400,
+        "generated": 400,
+        "source": "moveit_proxy"
+      },
+      {
+        "base": "moveit_table_bars",
+        "requested": 400,
+        "generated": 400,
+        "source": "moveit_proxy"
+      },
+      {
+        "base": "moveit_kitchen",
+        "requested": 400,
+        "generated": 371,
+        "source": "moveit_proxy"
+      },
+      {
+        "base": "curobo_cage",
+        "requested": 400,
+        "generated": 400,
+        "source": "curobo_builtin"
+      },
+      {
+        "base": "curobo_wall",
+        "requested": 400,
+        "generated": 400,
+        "source": "curobo_builtin"
+      },
+      {
+        "base": "curobo_thin_walls",
+        "requested": 400,
+        "generated": 355,
+        "source": "curobo_builtin"
+      },
+      {
+        "base": "curobo_pillar_wall",
+        "requested": 400,
+        "generated": 400,
+        "source": "curobo_builtin"
+      },
+      {
+        "base": "rm65_l_bend",
+        "requested": 400,
+        "generated": 400,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_dual_pillar",
+        "requested": 400,
+        "generated": 400,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_narrow_slit",
+        "requested": 400,
+        "generated": 386,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_table_fence",
+        "requested": 400,
+        "generated": 361,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_multi_shelf",
+        "requested": 400,
+        "generated": 400,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_open_field",
+        "requested": 400,
+        "generated": 400,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_tunnel",
+        "requested": 400,
+        "generated": 400,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_overhead_bar",
+        "requested": 400,
+        "generated": 400,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_triple_pillar",
+        "requested": 400,
+        "generated": 356,
+        "source": "claude_new"
+      },
+      {
+        "base": "rm65_slot_entry",
+        "requested": 400,
+        "generated": 352,
+        "source": "claude_new"
+      }
+    ]
+  }
+}

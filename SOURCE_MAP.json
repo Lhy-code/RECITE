@@ -1,0 +1,58 @@
+{
+  "recite/scenes.py": {
+    "source": "unified/scripts/merged_scene_library.py",
+    "includes": [
+      "25 base templates",
+      "validate_scene",
+      "generate_variants",
+      "scene_to_dict"
+    ],
+    "changes": "Rendering helpers, command-line gallery, and relaxed templates omitted; core functions retained."
+  },
+  "recite/srir.py": {
+    "source": "unified/scripts/compute_topology_sidecar_v2.py",
+    "includes": [
+      "_find_continuous_segments",
+      "build_clearance_profile",
+      "build_occupied_sphere_tube",
+      "_merge_portal_segments",
+      "extract_portal_graph",
+      "compute_rejoin_anchors",
+      "compute_goal_approach_cone"
+    ],
+    "additional_source": "unified/scripts/_淘汰/compute_topology_sidecar.py",
+    "additional_function": "find_event_windows",
+    "changes": "Standalone numeric kernels only; no algorithm changes."
+  },
+  "recite/dynamic.py": {
+    "source": "work1_core/generate_lightweight_dynamic_scenes.py",
+    "includes": [
+      "_generate_goal_block_trace",
+      "_generate_head_on_trace",
+      "_generate_near_miss_trace",
+      "generate_sphere_trace",
+      "_axis_span_endpoints",
+      "compute_smart_endpoints"
+    ],
+    "changes": "Pure proposal functions extracted; archive lookup and batch CLI omitted."
+  },
+  "recite/reachability.py": {
+    "source": "unified/scripts/cspace_reachability.py",
+    "includes": [
+      "build_density_histogram",
+      "query_density_along_trajectory",
+      "extract_reachability_portals",
+      "compute_true_reachability_score"
+    ],
+    "changes": "Pure kernels extracted; historical score name and formula preserved."
+  },
+  "recite/metrics.py": {
+    "source": "unified/scripts/run_recite_panda_fabrics.py",
+    "includes": [
+      "compute_dynamic_contact_severity"
+    ],
+    "additional_source": "unified/scripts/run_recite_gsolve.py",
+    "additional_function": "_signed_point_aabb_distance",
+    "changes": "Pure metric kernels extracted; backend loading and controller execution omitted."
+  }
+}

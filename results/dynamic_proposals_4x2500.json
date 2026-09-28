@@ -1,0 +1,104 @@
+{
+  "schema": "recite_proposal_10k_aggregate_v1",
+  "status": "complete",
+  "task_count": 100,
+  "totals_by_regime": {
+    "recite": {
+      "accepted_parent_count": 18,
+      "accepted_selected": 181,
+      "certified_parent_count": 18,
+      "collision_variants": 185,
+      "generated_parent_count": 19,
+      "generated_variants": 189,
+      "generation_rejection_counts": {
+        "activation_clearance_infeasible": 32,
+        "duplicate_timing_target": 501,
+        "dynamic_static_collision": 88,
+        "event_timing_infeasible": 1300,
+        "predicted_no_impact": 23,
+        "srir_candidate_geometry_inapplicable": 367
+      },
+      "gschedule_certified": 172,
+      "gschedule_episodes": 181,
+      "interaction_variants": 189,
+      "parent_shards": 25,
+      "selected_attempts": 2500,
+      "validated_variants": 181,
+      "validation_rejection_counts": {
+        "static_clearance_violation": 8
+      }
+    },
+    "route_near": {
+      "accepted_parent_count": 6,
+      "accepted_selected": 183,
+      "certified_parent_count": 4,
+      "collision_variants": 304,
+      "generated_parent_count": 10,
+      "generated_variants": 315,
+      "generation_rejection_counts": {
+        "activation_clearance_infeasible": 33,
+        "dynamic_static_collision": 924,
+        "predicted_no_impact": 1228
+      },
+      "gschedule_certified": 133,
+      "gschedule_episodes": 183,
+      "interaction_variants": 315,
+      "parent_shards": 25,
+      "selected_attempts": 2500,
+      "validated_variants": 183,
+      "validation_rejection_counts": {
+        "base_clearance_violation": 132
+      }
+    },
+    "route_time": {
+      "accepted_parent_count": 11,
+      "accepted_selected": 83,
+      "certified_parent_count": 11,
+      "collision_variants": 99,
+      "generated_parent_count": 11,
+      "generated_variants": 104,
+      "generation_rejection_counts": {
+        "activation_clearance_infeasible": 3,
+        "dynamic_static_collision": 34,
+        "predicted_no_impact": 28,
+        "route_timing_infeasible": 2331
+      },
+      "gschedule_certified": 83,
+      "gschedule_episodes": 83,
+      "interaction_variants": 104,
+      "parent_shards": 25,
+      "selected_attempts": 2500,
+      "validated_variants": 83,
+      "validation_rejection_counts": {
+        "base_clearance_violation": 21
+      }
+    },
+    "uniform": {
+      "accepted_parent_count": 2,
+      "accepted_selected": 58,
+      "certified_parent_count": 2,
+      "collision_variants": 91,
+      "generated_parent_count": 3,
+      "generated_variants": 91,
+      "generation_rejection_counts": {
+        "dynamic_static_collision": 872,
+        "predicted_no_impact": 1537
+      },
+      "gschedule_certified": 58,
+      "gschedule_episodes": 58,
+      "interaction_variants": 91,
+      "parent_shards": 25,
+      "selected_attempts": 2500,
+      "validated_variants": 58,
+      "validation_rejection_counts": {
+        "base_clearance_violation": 33
+      }
+    }
+  },
+  "source": "unified/outputs/current_round_2026-08-07/codex/HPC结果回传/10K动态提案/gate_detail/output/proposal_summary.json",
+  "measured_batch": "2026-08-07",
+  "scope": "four_dynamic_proposal_strategies_on_existing_static_routes",
+  "denominator": "2500 selected attempts per strategy",
+  "solvability_proposer": "G_schedule; fixed-route wait/advance scheduling",
+  "paper_table_binding": "stage_result_only; not the complete manuscript benchmark"
+}
