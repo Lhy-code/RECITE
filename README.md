@@ -13,7 +13,7 @@
 
 </div>
 
-[Overview](#overview) · [Architecture](#architecture) · [Examples](#visual-examples) · [Quick start](#quick-start) · [Release roadmap](#release-roadmap)
+[Overview](#overview) · [Conceptual overview](#conceptual-overview) · [Examples](#visual-examples) · [Quick start](#quick-start) · [Release roadmap](#release-roadmap)
 
 ## Overview
 
@@ -27,13 +27,13 @@ This initial release contains reusable compiler-stage code, a recorded RM65 exam
 - **Route-aware dynamic events:** use SR–IR to place and time moving obstacles around a reference motion.
 - **Inspectable evaluation:** retain geometry, interaction context, and contact diagnostics alongside each case.
 
-## Architecture
+## Conceptual overview
 
 <p align="center">
-  <img src="assets/architecture.png" width="820" alt="RECITE architecture: static scene expansion, reference-route planning, SR–IR construction, dynamic-event compilation, validation, and controller evaluation">
+  <img src="assets/overview.png" width="820" alt="RECITE conceptual overview: structured scene families, Scene–Route IR, tiered dynamic episodes, and matched reactive-controller evaluation">
 </p>
 
-The system overview connects scene construction, reference planning, SR–IR, dynamic-event compilation, and evaluation. The initial release below exposes the numerical stage kernels and a CPU example; integrated planning and controller adapters are listed in the roadmap.
+The manuscript's Figure 1 presents RECITE's overall concept: structured scene families and SR–IR support validated dynamic episodes across three structural tiers and matched reactive-controller evaluation. The initial release below exposes the numerical stage kernels and a CPU example; integrated planning and controller adapters are listed in the roadmap.
 
 ## Visual examples
 
