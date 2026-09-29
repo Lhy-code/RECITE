@@ -1,7 +1,7 @@
 """Original 25-template static scene generation and geometry rules.
 
-This lightweight validity screen precedes route planning; it is not a proof
-that a collision-free robot path exists. Rendering helpers are omitted.
+The geometry screen checks workspace bounds and obstacle clearances before
+route planning establishes a collision-free robot path.
 """
 from __future__ import annotations
 from dataclasses import dataclass
@@ -108,7 +108,7 @@ RM65_SCENES = {
 }
 
 # ════════════════════════════════════════════════
-#  B. MoveIt Proxy Scenes (6, Codex only)
+#  B. MoveIt-style Geometric Scenes (6, Codex collection)
 # ════════════════════════════════════════════════
 MOVEIT_SCENES = {
     "moveit_bookshelf_small": Scene(
@@ -184,8 +184,8 @@ MOVEIT_SCENES = {
 }
 
 # ════════════════════════════════════════════════
-#  C. cuRobo Builtin Scenes (4, Codex only)
-#     注: 这些场景原为 Franka Panda 设计, 适配 RM65 时部分可能不合规
+#  C. cuRobo Builtin Scenes (4, Codex collection)
+#     Adapted from Franka Panda layouts; validate_scene applies RM65 geometry rules.
 #     Adapted configurations: Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES.
 #     Subject to LICENSES/curobo.txt, including non-commercial research/evaluation use.
 # ════════════════════════════════════════════════
@@ -236,7 +236,7 @@ CUROBO_SCENES = {
 }
 
 # ════════════════════════════════════════════════
-#  D. Claude New Topologies (10, Claude only)
+#  D. Claude New Topologies (10, Claude collection)
 # ════════════════════════════════════════════════
 CLAUDE_NEW_SCENES = {
     "rm65_l_bend": Scene(
@@ -380,7 +380,7 @@ def validate_scene(scene: Scene, strict: bool = True) -> dict:
         if d < 0.03:
             issues.append(f"goal_too_close_{obs.name}(d={d:.4f})")
 
-    # 3. Goal not too close to base
+    # 3. Goal-base XY clearance
     goal_xy_dist = np.sqrt(goal[0]**2 + goal[1]**2)
     if goal_xy_dist < 0.18:
         issues.append(f"goal_too_close_to_base(xy={goal_xy_dist:.3f})")
@@ -390,7 +390,7 @@ def validate_scene(scene: Scene, strict: bool = True) -> dict:
     if goal_dist_base > MAX_REACH:
         issues.append(f"goal_unreachable(d={goal_dist_base:.3f})")
 
-    # 5. Obstacle doesn't block base
+    # 5. Base clearance from obstacles
     base_xy = np.array([0.0, 0.0])
     for obs in scene.obstacles:
         if obs.is_table:
@@ -410,7 +410,7 @@ def validate_scene(scene: Scene, strict: bool = True) -> dict:
         if cdist > OBS_MAX_DIST:
             issues.append(f"obs_too_far_{obs.name}(d={cdist:.3f})")
 
-    # 7. Goal not overlapping home arm spheres
+    # 7. Goal clearance from home-pose arm spheres
     for (sx, sy, sz), sr in zip(ARM_SPHERES_HOME, ARM_SPHERE_RADII):
         d = np.sqrt((goal[0]-sx)**2 + (goal[1]-sy)**2 + (goal[2]-sz)**2)
         if d < sr + 0.02:

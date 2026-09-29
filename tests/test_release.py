@@ -1,4 +1,4 @@
-"""Small checks for the CPU-only partial release."""
+"""Numerical and recorded-example checks for the CPU compiler stages."""
 import importlib
 import json
 from pathlib import Path

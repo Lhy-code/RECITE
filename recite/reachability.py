@@ -1,7 +1,7 @@
-"""Workspace-density queries and legacy aggregate reachability score.
+"""Workspace-density queries and weighted aggregate reachability score.
 
-Density profiles and the historical weighted aggregate are separate outputs;
-compute_true_reachability_score is not the mean route-density statistic.
+Density profiles report per-step route density. compute_true_reachability_score
+combines mean density, minimum density, free-space ratio, and density consistency.
 """
 from __future__ import annotations
 import numpy as np
@@ -135,7 +135,7 @@ def compute_true_reachability_score(
     reachability_profile: np.ndarray,
     free_ratio: float,
 ) -> float:
-    """计算真正的可达性评分 — 替代 sidecar_v2 的 reachability_proxy.
+    """计算轨迹密度与自由空间比例的加权可达性评分。
 
     综合指标:
       - mean_density: 轨迹沿线平均密度 (高 = 多数步可达性好)

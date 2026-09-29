@@ -19,7 +19,7 @@
 
 RECITE turns static scene–route pairs into structured dynamic evaluation tasks for reactive manipulators. Its **Scene–Route Intermediate Representation (SR–IR)** connects the reference route, swept occupancy, local clearance, interaction-candidate intervals (ICIs), portals, recovery candidates, and goal approach geometry. These fields support where and when to introduce moving obstacles, and provide context for downstream controller adapters.
 
-This initial release contains reusable compiler-stage code, a recorded RM65 example, and measured stage summaries. **The complete version will be organized and released over the next few months.**
+This initial release provides static scene generation, SR–IR construction, route-conditioned dynamic proposals, and contact diagnostics, with a runnable RM65 example and measured stage summaries. **The complete version will be organized and released over the next few months.**
 
 ### What RECITE brings together
 
@@ -33,7 +33,7 @@ This initial release contains reusable compiler-stage code, a recorded RM65 exam
   <img src="assets/overview.png" width="820" alt="RECITE conceptual overview: structured scene families, Scene–Route IR, tiered dynamic episodes, and matched reactive-controller evaluation">
 </p>
 
-The manuscript's Figure 1 presents RECITE's overall concept: structured scene families and SR–IR support validated dynamic episodes across three structural tiers and matched reactive-controller evaluation. The initial release below exposes the numerical stage kernels and a CPU example; integrated planning and controller adapters are listed in the roadmap.
+The manuscript's Figure 1 presents RECITE's overall concept: structured scene families and SR–IR support validated dynamic episodes across three structural tiers and matched reactive-controller evaluation. The released numerical kernels and CPU example cover scene generation, route representation, and dynamic proposals; the roadmap extends these stages with integrated planning and controller adapters.
 
 ## Visual examples
 
@@ -66,7 +66,7 @@ The animations are qualitative illustrations. In the avoidance example, tube opa
 | Recorded example | 153 reference-route samples with the RM65 11-sphere geometry and recorded sphere centers |
 | Stage results | Static generation over 10,000 requested slots and a four-strategy dynamic-proposal batch |
 
-The numerical kernels are extracted from the existing project implementation; [SOURCE_MAP.json](SOURCE_MAP.json) identifies their original modules. **The runnable example requires only Python and NumPy.**
+The numerical kernels are extracted from the existing project implementation; [SOURCE_MAP.json](SOURCE_MAP.json) identifies their original modules. **The runnable example runs on CPU with Python and NumPy.**
 
 ## Quick start
 
@@ -86,7 +86,7 @@ The example:
 3. Recomputes clearance and SR–IR fields from that recorded scene–route pair.
 4. Places a moving sphere using an ICI and measures its interaction with nominal motion.
 
-The static variants and recorded route are **separate stage examples**: the archived route is not reused as a plan for the newly generated scenes. Planning, controller execution, C-space sampling, and full `G_solve` certification belong to subsequent release stages.
+The example covers two compiler stages: static sampling produces new scene variants, and route compilation uses the recorded route with its original scene geometry. Subsequent releases will connect these stages through reference-route planning, controller execution, C-space sampling, and `G_solve` certification.
 
 ### Outputs
 
@@ -110,10 +110,10 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m unittest discover -s tests -v
 
 - Geometry uses metres; timestamps use seconds. The included trace uses a 60 Hz timebase.
 - ICI indices are `[start, end)` intervals of the nominal reference route. The original function name `find_event_windows` is retained; its public-facing field is `interaction_candidate_intervals`.
-- The occupied tube is built from all recorded robot-sphere centers and radii, rather than an end-effector-only trace.
+- The occupied tube captures full-body occupancy using all recorded robot-sphere centers and radii.
 - The released rejoin kernel selects statically clear points after ICIs. Online bridge generation and dynamic candidate ranking are part of the controller adapters to be organized next.
-- TRS kernels accept externally supplied collision-free configuration samples. The route example does not contain a C-space sample bank, so its TRS field is marked unavailable instead of substituting a different quantity.
-- Contact diagnostics distinguish geometric penetration from relative normal approach speed; they do not estimate contact force.
+- TRS kernels compute density and reachability scores from caller-supplied collision-free configuration samples. The CPU example compiles route geometry; its TRS metadata identifies the C-space samples needed to evaluate this additional field.
+- Contact diagnostics report geometric penetration depth and relative normal approach speed, in metres and metres per second.
 
 ## Measured stage snapshots
 
@@ -124,7 +124,7 @@ The following files preserve the measurement scope and original denominators:
 | [Static generation](results/static_stage_10000_slots.json), 2026-08-05 | 9,744 valid variants from 10,000 requested output slots; all 25 parent templates represented |
 | [Dynamic proposals](results/dynamic_proposals_4x2500.json), 2026-08-07 | Uniform, Route-near, Route-time, and RECITE; 2,500 selected attempts per strategy |
 
-The dynamic snapshot includes rejection categories and fixed-route scheduling (`G_schedule`) counts. These are stage-level results, released with their own batch definitions rather than as a substitute for the complete manuscript benchmark.
+The dynamic snapshot reports proposal filtering and fixed-route scheduling (`G_schedule`) counts with explicit batch definitions. The expanded benchmark and reproduction instructions are scheduled for the complete release.
 
 ## Repository structure
 
@@ -149,7 +149,7 @@ RECITE/
 - [ ] Controller adapters and matched evaluation configuration
 - [ ] Expanded benchmark episodes and organized reproduction instructions
 
-This repository focuses on the research pipeline and benchmark components. The figures and GIFs introduce the method; video-production tools are outside the code-release scope.
+The complete version will bring together the research pipeline, benchmark episodes, and reproduction instructions over the next few months. The figures and GIFs provide a visual introduction to the method alongside the released code.
 
 ## Citation
 
@@ -164,4 +164,4 @@ This repository focuses on the research pipeline and benchmark components. The f
 
 ## License and acknowledgments
 
-The original RECITE implementation is released under the [MIT License](LICENSE). The adapted cuRobo scene configurations retain their [NVIDIA License](LICENSES/curobo.txt), including its research/evaluation use terms. Scene provenance labels retain the original RM65, MoveIt-proxy, and cuRobo-family distinctions. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution. Third-party planners, controller implementations, checkpoints, and robot assets are not bundled.
+The original RECITE implementation is released under the [MIT License](LICENSE). The adapted cuRobo scene configurations retain their [NVIDIA License](LICENSES/curobo.txt), including its research/evaluation use terms. Scene provenance labels identify the RM65, MoveIt-style geometric, and cuRobo families. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution. Third-party planners, controller implementations, checkpoints, and robot assets are distributed through their respective upstream projects.

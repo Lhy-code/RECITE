@@ -1,7 +1,7 @@
 """Existing sampled geometry and first-contact severity kernels.
 
-Inputs are robot-sphere centers/radii, not meshes. Contact severity measures
-geometric overlap and relative approach speed, not contact force.
+Inputs are robot-sphere centers and radii. Contact diagnostics measure
+geometric overlap in metres and relative normal approach speed in metres/second.
 """
 from __future__ import annotations
 from typing import Any

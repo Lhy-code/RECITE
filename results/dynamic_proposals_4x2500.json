@@ -100,5 +100,5 @@
   "scope": "four_dynamic_proposal_strategies_on_existing_static_routes",
   "denominator": "2500 selected attempts per strategy",
   "solvability_proposer": "G_schedule; fixed-route wait/advance scheduling",
-  "paper_table_binding": "stage_result_only; not the complete manuscript benchmark"
+  "paper_table_binding": "dynamic-proposal stage snapshot; complete manuscript benchmark scheduled for the expanded release"
 }

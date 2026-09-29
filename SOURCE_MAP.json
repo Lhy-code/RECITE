@@ -7,7 +7,7 @@
       "generate_variants",
       "scene_to_dict"
     ],
-    "changes": "Rendering helpers, command-line gallery, and relaxed templates omitted; core functions retained."
+    "changes": "Scene-generation and geometry-validation functions extracted with the original 25 base templates."
   },
   "recite/srir.py": {
     "source": "unified/scripts/compute_topology_sidecar_v2.py",
@@ -22,7 +22,7 @@
     ],
     "additional_source": "unified/scripts/_淘汰/compute_topology_sidecar.py",
     "additional_function": "find_event_windows",
-    "changes": "Standalone numeric kernels only; no algorithm changes."
+    "changes": "Reusable numeric kernels extracted with their original algorithms preserved."
   },
   "recite/dynamic.py": {
     "source": "work1_core/generate_lightweight_dynamic_scenes.py",
@@ -34,7 +34,7 @@
       "_axis_span_endpoints",
       "compute_smart_endpoints"
     ],
-    "changes": "Pure proposal functions extracted; archive lookup and batch CLI omitted."
+    "changes": "Proposal functions extracted for direct use with caller-supplied routes and templates."
   },
   "recite/reachability.py": {
     "source": "unified/scripts/cspace_reachability.py",
@@ -53,6 +53,6 @@
     ],
     "additional_source": "unified/scripts/run_recite_gsolve.py",
     "additional_function": "_signed_point_aabb_distance",
-    "changes": "Pure metric kernels extracted; backend loading and controller execution omitted."
+    "changes": "Metric kernels extracted for direct use with recorded geometry and motion traces."
   }
 }

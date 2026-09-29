@@ -65,11 +65,11 @@ def _find_continuous_segments(mask: np.ndarray, min_steps: int) -> list[tuple[in
 
 
 def build_clearance_profile(clearance: np.ndarray) -> dict:
-    """Serialize the route-static clearance signal without discarding time.
+    """Serialize the full route-static clearance signal and its summary.
 
-    Earlier sidecars kept only summary statistics.  Those statistics remain
-    for compatibility, while ``values_m`` makes event-window and ablation
-    decisions reproducible from the sidecar alone.
+    Summary statistics preserve the sidecar interface, while ``values_m``
+    retains the per-step signal for reproducible event-window and ablation
+    decisions.
     """
     values = np.asarray(clearance, dtype=np.float64).reshape(-1)
     if (
@@ -400,10 +400,9 @@ def compute_rejoin_anchors(
 ) -> list[dict]:
     """Return the first route-static safe rejoin after each event window.
 
-    The certificate is deliberately narrow: it proves that the selected
-    point and a short forward nominal segment satisfy the static-clearance
-    threshold.  It does not claim that an arbitrary off-route state can reach
-    the anchor, which remains the controller's online geometry check.
+    Each selected point and its short forward nominal segment satisfy the
+    static-clearance threshold. The controller's online geometry check
+    evaluates the bridge from its current off-route state to the anchor.
     """
     values = np.asarray(clearance, dtype=np.float64).reshape(-1)
     route = np.asarray(ee_traj, dtype=np.float64)

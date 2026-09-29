@@ -7,7 +7,7 @@
     "static_template_count": 25,
     "requested_variant_slots": 10000,
     "requested_slots_are_attempt_ids": false,
-    "requested_slot_semantics": "target output slots; rejected perturbation attempts were not emitted by the reused generator",
+    "requested_slot_semantics": "target output slots; the generator emits perturbations that pass the geometry rules",
     "materialized_valid_variant_count": 9744,
     "independently_revalidated_variant_count": 9744,
     "unfilled_requested_slots": 256,

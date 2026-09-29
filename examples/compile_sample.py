@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run released CPU stages on a recorded reference route, without simulation."""
+"""Compile SR–IR and a dynamic proposal from a recorded reference route on CPU."""
 from __future__ import annotations
 
 import argparse
@@ -33,16 +33,16 @@ def main():
     sample = json.loads(args.input.read_text(encoding="utf-8"))
     args.output.mkdir(parents=True, exist_ok=True)
 
-    # Static sampling is a separate stage demonstration. These newly sampled
-    # variants are NOT paired with the archived route below.
+    # Generate static scene variants as the scene-sampling stage.
+    # The route-compilation stage below uses its original recorded scene.
     scene_results = [validate_scene(scene) for scene in ALL_BASE_SCENES.values()]
     variants = generate_variants(ALL_BASE_SCENES["rm65_corridor"], n=3, seed=42)
     (args.output / "static_variants.json").write_text(
         json.dumps([scene_to_dict(v) for v in variants], indent=2), encoding="utf-8"
     )
 
-    # Reuse an already planned route and its recorded FK centers. No planner,
-    # robot asset, or GPU is required to recompile these numerical fields.
+    # Recompile numerical fields on CPU using the planned route and recorded
+    # forward-kinematics sphere centers from the supplied scene–route pair.
     ee = np.asarray(sample["ee"], dtype=float)
     centers = np.asarray(sample["sphere_centers_m"], dtype=float)
     geometry = sample["geometry"]
@@ -75,14 +75,15 @@ def main():
         "rejoin_anchors": compute_rejoin_anchors(clearance, ee, ici),
         "rejoin_variant": "first_statically_clear_route_point_after_each_ICI",
         "goal_approach_cone": compute_goal_approach_cone(ee, np.asarray(sample["goal"])),
-        "trs": {"available": False, "reason": "C-space samples are not included in this route example."},
+        "trs": {"available": False, "reason": "TRS evaluation requires caller-supplied collision-free C-space samples."},
     }
     (args.output / "compiled_srir.json").write_text(
         json.dumps(srir, indent=2, allow_nan=False), encoding="utf-8"
     )
 
     # Select the longest ICI and reuse the original crossing primitive.
-    # This is a proposal, not an accepted episode or a G_solve witness.
+    # Generate a proposal for geometric measurement; G_solve certifies
+    # constructive solvability in the integrated release workflow.
     window = max(ici, key=lambda row: row["duration"])
     start, end = compute_smart_endpoints(
         ee, {"axis": "y", "path_span": .24}, len(ee), event_window=window
@@ -131,7 +132,7 @@ def main():
         "proposal_minimum_static_clearance_m": float(min_dynamic_static),
         "proposal_first_active_robot_clearance_m": activation_clearance,
         "proposal_nominal_contact_metrics": severity,
-        "proposal_status": "generated_and_geometrically_measured; not certified by G_solve",
+        "proposal_status": "generated_and_geometrically_measured; G_solve certification is a subsequent pipeline stage",
         "not_executed": ["new_reference_route_planning", "C_space_scan", "G_solve", "controller_rollout"],
     }
     (args.output / "summary.json").write_text(

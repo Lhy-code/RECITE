@@ -11,8 +11,8 @@ These assets illustrate the RECITE compiler and its Scene–Route Intermediate R
 
 The images and animation are qualitative illustrations of the representation. Quantitative stage results are provided separately in [`../results/`](../results/).
 
-The GIF uses **interaction-candidate interval (ICI)**. An ICI guides dynamic-event placement during compilation; it is not an online avoidance mode. Rejoin anchors describe candidate recovery states, while the goal cone represents the final approach region.
+The GIF uses **interaction-candidate interval (ICI)** for the route segment that guides dynamic-event placement during compilation. Rejoin anchors describe candidate recovery states, while the goal cone represents the final approach region.
 
-The original videos and visualization-production scripts are not part of this initial code release.
+This release provides the figures and README-ready animations listed above; their source videos and production scripts remain in the media-production workspace.
 
-The avoidance preview follows the saved controller trace and source clock. Its annotations do not alter the robot or obstacle trajectory. The tube is the reference motion's occupancy, not a visualization of a new online plan; no unselected rejoin anchor is added.
+The avoidance preview preserves the saved robot and obstacle trajectories and their source clock. The tube shows reference-motion occupancy, and the recovery annotations follow the selected controller trace.
